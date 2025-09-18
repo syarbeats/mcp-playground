@@ -143,6 +143,8 @@ python run_host.py --mock --debug
 The backend will start on `http://localhost:8001`
 
 - API Documentation: `http://localhost:8001/docs`
+<img width="1454" height="870" alt="image" src="https://github.com/user-attachments/assets/992460ea-69a7-498f-a826-95528c83ce51" />
+
 - OpenAPI Schema: `http://localhost:8001/openapi.json`
 
 ### Running the MCP Server Standalone
@@ -172,6 +174,8 @@ npm start
 ```
 
 The frontend will start on `http://localhost:3000`
+<img width="1919" height="922" alt="image" src="https://github.com/user-attachments/assets/34806eaf-27a8-49c3-afc8-423fc4564c12" />
+
 
 ## 🎮 Using the System
 
