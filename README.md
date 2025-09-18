@@ -102,6 +102,10 @@ npm install
 
 ### Step 1: Start the Backend (Host + MCP)
 
+There are several ways to run the backend depending on your needs:
+
+#### Standard Mode
+
 ```bash
 # From the backend directory
 cd backend
@@ -115,10 +119,47 @@ source venv/bin/activate  # macOS/Linux
 python run_host.py
 ```
 
+#### Debug Mode (for detailed logging)
+
+```bash
+# Run with debug logging enabled
+python run_host.py --debug
+```
+
+#### Mock Mode (for testing without a real MCP server)
+
+```bash
+# Run with mock MCP client
+python run_host.py --mock
+```
+
+#### Combined Options
+
+```bash
+# Run with both debug logging and mock client
+python run_host.py --mock --debug
+```
+
 The backend will start on `http://localhost:8001`
 
 - API Documentation: `http://localhost:8001/docs`
 - OpenAPI Schema: `http://localhost:8001/openapi.json`
+
+### Running the MCP Server Standalone
+
+If you want to run the MCP server separately (for development or testing):
+
+```bash
+# Run the MCP server standalone
+python run_server.py
+```
+
+With debug logging:
+
+```bash
+# Run with debug logging enabled
+python run_server.py --debug
+```
 
 ### Step 2: Start the Frontend
 
@@ -268,7 +309,55 @@ python -m mcp_client.client
 
 ### API Testing
 
+#### Using the Interactive Documentation
+
 Use the interactive API documentation at `http://localhost:8001/docs` to test endpoints directly.
+
+#### Using PowerShell Commands
+
+You can also test the API using PowerShell commands:
+
+**Create a Task:**
+```powershell
+$headers = @{ "Content-Type" = "application/json" }
+$body = @{
+    "title" = "Test Task"
+    "description" = "This is a test task"
+    "priority" = "high"
+    "status" = "pending"
+} | ConvertTo-Json
+Invoke-WebRequest -Uri "http://localhost:8001/api/tasks" -Method Post -Headers $headers -Body $body
+```
+
+**List All Tasks:**
+```powershell
+Invoke-WebRequest -Uri "http://localhost:8001/api/tasks" -Method Get
+```
+
+**Get a Specific Task:**
+```powershell
+# Replace {task_id} with the actual task ID
+Invoke-WebRequest -Uri "http://localhost:8001/api/tasks/{task_id}" -Method Get
+```
+
+**Update a Task:**
+```powershell
+$headers = @{ "Content-Type" = "application/json" }
+$body = @{
+    "title" = "Updated Task"
+    "description" = "This task has been updated"
+    "priority" = "medium"
+    "status" = "in_progress"
+} | ConvertTo-Json
+# Replace {task_id} with the actual task ID
+Invoke-WebRequest -Uri "http://localhost:8001/api/tasks/{task_id}" -Method Put -Headers $headers -Body $body
+```
+
+**Delete a Task:**
+```powershell
+# Replace {task_id} with the actual task ID
+Invoke-WebRequest -Uri "http://localhost:8001/api/tasks/{task_id}" -Method Delete
+```
 
 ## 📁 Project Structure
 
